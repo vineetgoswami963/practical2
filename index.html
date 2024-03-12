@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Paragraphs</title>
+  <style>
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    .paragraph {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <textarea id="input" placeholder="Type sentences or paragraphs"></textarea>
+  <div id="paragraphs"></div>
+
+  <script>
+    document.getElementById('input').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const inputText = this.value.trim();
+        if (!inputText) return;
+
+        const paragraphsDiv = document.getElementById('paragraphs');
+        const paragraphDiv = document.createElement('div');
+        paragraphDiv.className = 'paragraph';
+        paragraphDiv.innerHTML = `
+          <p>${inputText}</p>
+          <button onclick="deleteParagraph(this)">Delete</button>
+        `;
+        paragraphsDiv.appendChild(paragraphDiv);
+
+        this.value = '';
+      }
+    });
+
+    function deleteParagraph(button) {
+      button.parentNode.remove();
+    }
+  </script>
+</body>
+</html>
